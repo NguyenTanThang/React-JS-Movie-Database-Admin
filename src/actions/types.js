@@ -3,6 +3,11 @@ export const ADD_GENRE = "ADD_GENRE";
 export const EDIT_GENRE = "EDIT_GENRE";
 export const DELETE_GENRE = "DELETE_GENRE";
 
+export const GET_ALL_PLANS = "GET_ALL_PLANS";
+export const ADD_PLAN = "ADD_PLAN";
+export const EDIT_PLAN = "EDIT_PLAN";
+export const DELETE_PLAN = "DELETE_PLAN";
+
 export const GET_ALL_MANAGERS = "GET_ALL_MANAGERS";
 export const ADD_MANAGER = "ADD_MANAGER";
 export const EDIT_MANAGER = "EDIT_MANAGER";

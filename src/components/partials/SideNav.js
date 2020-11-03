@@ -73,6 +73,13 @@ class SideNav extends Component {
                 </li>
 
                 <li>
+                    <Link to="/plans">
+                    <i className="fas fa-calendar" aria-hidden="true"></i>
+                    Plans
+                    </Link>
+                </li>
+
+                <li>
                     <Link to="/users/change-password">
                     <i className="fas fa-lock"></i>
                     Password

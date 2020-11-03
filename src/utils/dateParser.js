@@ -12,11 +12,11 @@ export const parseDateNormal = (date) => {
 }
 
 export const parseDateMoment = (date) => {
-    return moment(date).format('MMM Do YYYY, h:mm:ss a');
+    return moment(date).format('MMM Do YYYY');
 }
 
 export const parseDateMomentSecToDate = (secs) => {
     var currentdate = new Date(1970, 0, 1); 
     currentdate.setSeconds(secs);
-    return moment(currentdate).format('MMM Do YYYY, h:mm:ss a');
+    return moment(currentdate).format('MMM Do YYYY');
 }

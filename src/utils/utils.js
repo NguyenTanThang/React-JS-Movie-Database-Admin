@@ -8,6 +8,20 @@ export const exchangeURLToFileDirectory = (url) => {
     return tempUrl;
 }
 
+export const checkIfIn = (key, arr) => {
+    key = String(key);
+    console.log(key);
+    return arr.includes(key);
+}
+
+export const capitalizeText = (text) => {
+    return text.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
+}
+
+export const convertKeyToText = (key) => {
+    return capitalizeText(key.replace(/_/g, ' '));
+}
+
 export const filterEpisodes = (episodes, totalEpisode) => {
     return episodes = episodes.filter(episode => {
         const {episodeNum} = episode;

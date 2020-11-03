@@ -165,6 +165,9 @@ class CustomerList extends Component {
         render: (text, record) => {
           return (
             <Space>
+                <Link to={`/customers/details/${record._id}`} className="btn btn-primary">
+                    <i className="fas fa-eye"></i>
+                </Link>
                 <Link to={`/customers/edit/${record._id}`} className="btn btn-warning">
                     <i className="fas fa-pen"></i>
                 </Link>

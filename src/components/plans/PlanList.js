@@ -1,12 +1,12 @@
 import React, {Component} from "react";
-import { Table, Input, Button, Space, Tag } from 'antd';
+import { Table, Input, Button, Space } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
+import DeletePlan from "./DeletePlan";
 import {parseDateMoment} from "../../utils/dateParser";
 import {Link} from "react-router-dom";
-import DeleteMovie from "./DeleteMovie"
 
-class MovieList extends Component {
+class PlanList extends Component {
   state = {
     searchText: '',
     searchedColumn: '',
@@ -42,37 +42,26 @@ class MovieList extends Component {
       </div>
     ),
     filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
-    onFilter: (value, record) => {
-        if (dataIndex === "roleID") {
-            return record[dataIndex].role
-            ? record[dataIndex].role.toString().toLowerCase().includes(value.toLowerCase())
-            : ''
-        }
-        return record[dataIndex]
+    onFilter: (value, record) =>
+      record[dataIndex]
         ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
-        : ''
-    },
+        : '',
     onFilterDropdownVisibleChange: visible => {
       if (visible) {
         setTimeout(() => this.searchInput.select(), 100);
       }
     },
-    render: (text, record) => {
-        if (dataIndex === "roleID") {
-            console.log(record);
-        }
-        return this.state.searchedColumn === dataIndex ? (
-            <Highlighter
-              highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-              searchWords={[this.state.searchText]}
-              autoEscape
-              textToHighlight={text ? text.toString() : ''}
-            />
-          ) : (
-            text
-          )
-    }
-      ,
+    render: text =>
+      this.state.searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          searchWords={[this.state.searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ''}
+        />
+      ) : (
+        text
+      ),
   });
 
   handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -89,9 +78,9 @@ class MovieList extends Component {
   };
 
   render() {
-    const data = this.props.movies.map(movie => {
-      movie.key = movie._id;
-      return movie;
+    const data = this.props.plans.map(plan => {
+      plan.key = plan._id;
+      return plan;
     });
     const columns = [
       {
@@ -99,24 +88,45 @@ class MovieList extends Component {
         dataIndex: 'name',
         key: 'name',
         ...this.getColumnSearchProps('name'),
-        width: '20%',
         sorter: {
             compare: (a, b) => {
               if(a.name < b.name) { return -1; }
               if(a.name > b.name) { return 1; }
               return 0;
             },
-            multiple: 4,
+            multiple: 3,
+        },
+      },
+      {
+        title: 'Price',
+        dataIndex: 'price',
+        key: 'price',
+        sorter: {
+            compare: (a, b) => {
+              if(a.price < b.price) { return -1; }
+              if(a.price > b.price) { return 1; }
+              return 0;
+            },
+            multiple: 2,
+        },
+        render: (text) => {
+          return `$${text}`
         }
       },
       {
-        title: 'Genres',
-        dataIndex: 'genres',
-        key: 'genres',
-        render: (genres) => {
-          return genres.map(genre => {
-            return <Tag color="blue">{genre}</Tag>
-          })
+        title: 'Duration',
+        dataIndex: 'durationInDays',
+        key: 'durationInDays',
+        sorter: {
+            compare: (a, b) => {
+              if(a.durationInDays < b.durationInDays) { return -1; }
+              if(a.durationInDays > b.durationInDays) { return 1; }
+              return 0;
+            },
+            multiple: 2,
+        },
+        render: (text) => {
+          return `${text} days`
         }
       },
       {
@@ -154,13 +164,10 @@ class MovieList extends Component {
         render: (text, record) => {
           return (
             <Space>
-                <Link to={`/movies/details/${record._id}`} className="btn btn-primary">
-                    <i className="fas fa-eye"></i>
-                </Link>
-                <Link to={`/movies/edit/${record._id}`} className="btn btn-warning">
+                <Link to={`/plans/edit/${record._id}`} className="btn btn-warning">
                     <i className="fas fa-pen"></i>
                 </Link>
-                <DeleteMovie movieItem={record}/>
+                <DeletePlan planItem={record}/>
             </Space>
           )
         }
@@ -173,4 +180,4 @@ class MovieList extends Component {
   }
 }
 
-export default MovieList;
+export default PlanList;

@@ -37,7 +37,9 @@ class MovieGridItem extends Component {
                     {renderMoviePoster()}
                 </div>
                 <div className="movie-item-desc">
-                    <h4>{name}</h4>   
+                    <Link to={`/movies/details/${_id}`}>
+                        <h4>{name}</h4>  
+                    </Link> 
                 </div>
             </div>
         )
