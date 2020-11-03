@@ -24,7 +24,7 @@ export default class SeriesGridView extends Component {
         const {renderSeriesItems} = this;
 
         return (
-            <div className="row">
+            <div className="row movie-grid-list">
                 {renderSeriesItems()}
             </div>
         )

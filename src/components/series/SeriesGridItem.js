@@ -24,7 +24,7 @@ class SeriesGridItem extends Component {
         const {renderSeriesPoster} = this;
 
         return (
-            <div className="col-lg-3 col-md-6 col-sm-12 movie-item series-item">
+            <div className="col-lg-3 col-md-4 col-sm-12 movie-item series-item">
                 <div className="movie-actions series-actions">
                     <Space>
                         <Link className="btn btn-warning" to={`/series/edit/${_id}`}>

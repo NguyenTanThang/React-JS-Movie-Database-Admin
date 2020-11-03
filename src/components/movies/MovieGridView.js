@@ -46,7 +46,7 @@ export default class MovieGridView extends Component {
 
         return (
             <div>
-                <div className="row">
+                <div className="row movie-grid-list">
                     {renderMovieItems()}
                 </div>
                 <PaginationComponent pageObject={pageObject} total={movies.length} onChangePageNumber={onChangePageNumber}/>

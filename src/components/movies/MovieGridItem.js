@@ -24,7 +24,7 @@ class MovieGridItem extends Component {
         const {renderMoviePoster} = this;
 
         return (
-            <div className="col-lg-3 col-md-6 col-sm-12 movie-item">
+            <div className="col-lg-3 col-md-4 col-sm-6 movie-item">
                 <div className="movie-actions">
                     <Space>
                         <Link className="btn btn-warning" to={`/movies/edit/${_id}`}>
