@@ -153,10 +153,6 @@
     width: 100%;
   }
 
-  .wrapper .sidebar ul li a{
-    padding: 20px;
-  }
-  
   .wrapper .sidebar.active {
     left: 0;
   }
