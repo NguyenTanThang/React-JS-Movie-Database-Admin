@@ -33,7 +33,8 @@ class SideNav extends Component {
     }
 
     displayNavItems = () => {
-        const userID = localStorage.getItem("userID");
+        let userID = localStorage.getItem("userID");
+        userID = "123";
         if (userID) {
           return (
             <>
