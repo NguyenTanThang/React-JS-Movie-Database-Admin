@@ -37,7 +37,9 @@ class SeriesGridItem extends Component {
                     {renderSeriesPoster()}
                 </div>
                 <div className="movie-item-desc series-item-desc">
-                    <h4>{name}</h4>   
+                    <Link to={`/series/details/${_id}`}>
+                        <h4>{name}</h4>  
+                    </Link>
                 </div>
             </div>
         )

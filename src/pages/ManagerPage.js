@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Container} from "reactstrap";
-import {Space} from "antd";
 import {
     getAllManagers
 } from "../actions/managerActions";
@@ -8,11 +7,18 @@ import {connect} from "react-redux";
 import ManagerList from "../components/managers/ManagerList";
 import LayoutSide from "../components/partials/LayoutSide";
 import ComponentHeader from "../components/partials/ComponentHeader";
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom";
+import {getCurrentLoginStatus} from "../requests/authRequests";
+import {Space, message} from "antd";
 
 class ManagerPage extends Component {
     
-    componentDidMount() {
+    async componentDidMount() {
+        const loggedIn = await getCurrentLoginStatus();
+        if (!loggedIn) {
+            message.error("You need to login first");
+            this.props.history.push("/login");
+        }
         this.props.getAllManagers();
     }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Container, Button, ButtonGroup} from "reactstrap";
-import {Space} from "antd";
+import {Space, message} from "antd";
 import {
     getAllMovies
 } from "../actions/movieActions";
@@ -9,7 +9,8 @@ import MovieList from "../components/movies/MovieList";
 import MovieGridView from "../components/movies/MovieGridView";
 import LayoutSide from "../components/partials/LayoutSide";
 import ComponentHeader from "../components/partials/ComponentHeader";
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom";
+import {getCurrentLoginStatus} from "../requests/authRequests";
 
 class MoviePage extends Component {
     
@@ -17,7 +18,12 @@ class MoviePage extends Component {
         currentView: "grid"
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        const loggedIn = await getCurrentLoginStatus();
+        if (!loggedIn) {
+            message.error("You need to login first");
+            this.props.history.push("/login");
+        }
         this.props.getAllMovies();
     }
 

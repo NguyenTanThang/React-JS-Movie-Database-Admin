@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
 class SideNav extends Component {
     
@@ -79,6 +79,13 @@ class SideNav extends Component {
                     Plans
                     </Link>
                 </li>
+                
+                <li>
+                    <Link to="/subscriptions">
+                    <i className="fas fa-calendar" aria-hidden="true"></i>
+                    Subscriptions
+                    </Link>
+                </li>
 
                 <li>
                     <Link to="/users/change-password">
@@ -88,7 +95,7 @@ class SideNav extends Component {
                 </li>
                 
                 <li>
-                    <Link to="/users/logout">
+                    <Link to="/logout">
                     <i className="fas fa-sign-out-alt"></i>
                     Logout
                     </Link>

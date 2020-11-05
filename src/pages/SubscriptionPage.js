@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import {Container} from "reactstrap";
 import {
-    getAllGenres,
-    addGenre,
-} from "../actions/genreActions";
+    getAllSubscriptions,
+} from "../actions/subscriptionActions";
 import {connect} from "react-redux";
-import GenreList from "../components/genres/GenreList";
-import AddGenre from "../components/genres/AddGenre";
+import SubscriptionList from "../components/subscriptions/SubscriptionList";
 import LayoutSide from "../components/partials/LayoutSide";
 import ComponentHeader from "../components/partials/ComponentHeader";
+import {Space, message} from "antd";
 import {getCurrentLoginStatus} from "../requests/authRequests";
-import {message} from "antd";
 
-class GenrePage extends Component {
+class SubscriptionPage extends Component {
     
     async componentDidMount() {
         const loggedIn = await getCurrentLoginStatus();
@@ -20,21 +18,20 @@ class GenrePage extends Component {
             message.error("You need to login first");
             this.props.history.push("/login");
         }
-        this.props.getAllGenres();
+        this.props.getAllSubscriptions();
     }
 
     render() {
-        const {addGenre} = this.props;
-
         return (
             <LayoutSide>
-                <ComponentHeader returnURL="/" title="Genres"/>
+                <ComponentHeader returnURL="/" title="Subscriptions"/>
                 <Container className="section-padding">
                     <div className="utils-box">
-                        <AddGenre addGenre={addGenre}/>
+                        <Space>
+                        </Space>
                     </div>
                     <div className="table-container">
-                        <GenreList genres={this.props.genres}/>
+                        <SubscriptionList subscriptions={this.props.subscriptions}/>
                     </div>
                 </Container>
             </LayoutSide>
@@ -44,19 +41,16 @@ class GenrePage extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getAllGenres: () => {
-            dispatch(getAllGenres())
-        },
-        addGenre: (name) => {
-            dispatch(addGenre(name))
+        getAllSubscriptions: () => {
+            dispatch(getAllSubscriptions())
         }
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        genres: state.genreReducer.genres
+        subscriptions: state.subscriptionReducer.subscriptions
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GenrePage);
+export default connect(mapStateToProps, mapDispatchToProps)(SubscriptionPage);

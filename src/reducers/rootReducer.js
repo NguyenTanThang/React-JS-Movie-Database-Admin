@@ -4,6 +4,7 @@ import customerReducer from "./customerReducer";
 import movieReducer from "./movieReducer";
 import seriesReducer from "./seriesReducer";
 import planReducer from "./planReducer";
+import subscriptionReducer from "./subscriptionReducer";
 import {combineReducers} from "redux";
 
 const rootReducer = combineReducers({
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     customerReducer,
     movieReducer,
     seriesReducer,
-    planReducer
+    planReducer,
+    subscriptionReducer
 })
 
 export default rootReducer;

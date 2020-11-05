@@ -5,7 +5,11 @@ import './App.css';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 import GenrePage from "./pages/GenrePage";
+import LoginPage from "./pages/LoginPage";
+import ChangePasswordPage from "./pages/ChangePasswordPage";
+import Logout from "./pages/Logout";
 import PlanPage from "./pages/PlanPage";
+import SubscriptionPage from "./pages/SubscriptionPage";
 import ManagerPage from "./pages/ManagerPage";
 import CustomerPage from "./pages/CustomerPage";
 import MoviePage from "./pages/MoviePage";
@@ -22,6 +26,7 @@ import EditMoviePage from "./pages/EditMoviePage";
 import EditSeriesPage from "./pages/EditSeriesPage";
 import CustomerDetailsPage from "./pages/CustomerDetailsPage";
 import MovieDetailsPage from "./pages/MovieDetailsPage";
+import SeriesDetailsPage from "./pages/SeriesDetailsPage";
 import LayoutSide from "./components/partials/LayoutSide";
 
 function App() {
@@ -46,8 +51,13 @@ function App() {
           <Route path="/plans/edit/:planID" component={EditPlanPage}/>
           <Route path="/customers/details/:customerID" component={CustomerDetailsPage}/>
           <Route path="/movies/details/:movieID" component={MovieDetailsPage}/>
+          <Route path="/series/details/:seriesID" component={SeriesDetailsPage}/>
           <Route path="/genres" component={GenrePage}/>
           <Route path="/plans" component={PlanPage}/>
+          <Route path="/subscriptions" component={SubscriptionPage}/>
+          <Route path="/login" component={LoginPage}/>
+          <Route path="/logout" component={Logout}/>
+          <Route path="/users/change-password" component={ChangePasswordPage}/>
         </Switch>
       </Router>
     </div>

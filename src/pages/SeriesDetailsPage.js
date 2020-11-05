@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import {Container} from "reactstrap";
-import MovieDetails from "../components/movies/MovieDetails";
+import SeriesDetails from "../components/series/SeriesDetails";
 import LayoutSide from "../components/partials/LayoutSide";
 import ComponentHeader from "../components/partials/ComponentHeader";
-import {getMovieByID} from "../requests/movieRequests";
+import {getSeriesByID} from "../requests/seriesRequests";
+import {getEpisodesBySeriesID} from "../requests/episodeRequests";
 import {getCurrentLoginStatus} from "../requests/authRequests";
 import {message} from "antd";
 
-class MovieDetailsPage extends Component {
+class SeriesDetailsPage extends Component {
 
     state = {
-        movieItem: "",
+        seriesItem: "",
+        episodesList: [],
         loggedIn: false
     }
 
@@ -24,29 +26,31 @@ class MovieDetailsPage extends Component {
             return this.props.history.push("/login");
         }
 
-        const {movieID} = this.props.match.params;
-        const movieItem = await getMovieByID(movieID);
+        const {seriesID} = this.props.match.params;
+        const seriesItem = await getSeriesByID(seriesID);
+        const episodesList = await getEpisodesBySeriesID(seriesID);
         this.setState({
-            movieItem
+            seriesItem,
+            episodesList
         })
     }
 
     render() {
-        const {movieItem, loggedIn} = this.state;
+        const {seriesItem, loggedIn, episodesList} = this.state;
 
-        if (!movieItem || !loggedIn) {
+        if (!seriesItem || !loggedIn) {
             return (<></>)
         }
 
         return (
             <LayoutSide>
-                <ComponentHeader returnURL="/movies" title="Movie Details"/>
+                <ComponentHeader returnURL="/series" title="Series Details"/>
                 <Container className="section-padding">
-                    <MovieDetails movieItem={movieItem}/>
+                    <SeriesDetails seriesItem={seriesItem} episodesList={episodesList}/>
                 </Container>
             </LayoutSide>
         )
     }
 }
 
-export default MovieDetailsPage;
+export default SeriesDetailsPage;

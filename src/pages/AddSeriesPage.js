@@ -9,10 +9,17 @@ import {
 import {
     connect
 } from "react-redux";
+import {getCurrentLoginStatus} from "../requests/authRequests";
+import {message} from "antd";
 
 class AddSeriesPage extends Component {
 
-    componentDidMount() {
+    async componentDidMount() {
+        const loggedIn = await getCurrentLoginStatus();
+        if (!loggedIn) {
+            message.error("You need to login first");
+            this.props.history.push("/login");
+        }
         this.props.getAllGenres();
     }
 

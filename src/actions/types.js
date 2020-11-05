@@ -27,3 +27,7 @@ export const GET_ALL_SERIES = "GET_ALL_SERIES";
 export const ADD_SERIES = "ADD_SERIES";
 export const DELETE_SERIES = "DELETE_SERIES";
 export const EDIT_SERIES = "EDIT_SERIES";
+
+export const GET_ALL_SUBS = "GET_ALL_SUBS";
+export const GET_SUBS_BY_CUSTOMER_ID = "GET_SUBS_BY_CUSTOMER_ID";
+export const DELETE_SUB = "DELETE_SUB"

@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { Descriptions } from 'antd';
 import {convertKeyToText, checkIfIn} from "../../utils/utils";
+import SubscriptionList from "../subscriptions/SubscriptionList";
 
 const restrictedKeys = [
     "__v",
     "_id",
-    "password"
+    "password",
+    "stripeCustomerID"
 ]
 
 class CustomerDetails extends Component {
 
     renderCustomerDescriptionItems = () => {
-        const {customerItem} = this.props;
+        const {customerItem, subscriptions} = this.props;
         const currentCustomer = customerItem.customerItem;
         console.log(currentCustomer);
         let descriptionItems = [];
@@ -27,10 +29,16 @@ class CustomerDetails extends Component {
               const key = `cd-${property}`
 
               descriptionItems.push(
-                <Descriptions.Item key={key} label={label}>{content}</Descriptions.Item>
+                <Descriptions.Item key={key} span={2} label={label}>{content}</Descriptions.Item>
               )
             }
         }
+
+        descriptionItems.push(
+            <Descriptions.Item key={`cd-subscriptions`} label="Subscriptions" span={3}>
+                <SubscriptionList subscriptions={subscriptions}/>
+            </Descriptions.Item>
+        );
 
         return descriptionItems;
     }

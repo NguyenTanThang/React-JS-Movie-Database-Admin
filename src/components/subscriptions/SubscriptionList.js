@@ -1,12 +1,11 @@
 import React, {Component} from "react";
-import { Table, Input, Button, Space, Tag } from 'antd';
+import { Table, Input, Button, Space } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
+import DeleteSubscription from "./DeleteSubscription";
 import {parseDateMoment} from "../../utils/dateParser";
-import {Link} from "react-router-dom";
-import DeleteSeries from "./DeleteSeries"
 
-class SeriesList extends Component {
+class SubscriptionList extends Component {
   state = {
     searchText: '',
     searchedColumn: '',
@@ -42,37 +41,26 @@ class SeriesList extends Component {
       </div>
     ),
     filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
-    onFilter: (value, record) => {
-        if (dataIndex === "roleID") {
-            return record[dataIndex].role
-            ? record[dataIndex].role.toString().toLowerCase().includes(value.toLowerCase())
-            : ''
-        }
-        return record[dataIndex]
+    onFilter: (value, record) =>
+      record[dataIndex]
         ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
-        : ''
-    },
+        : '',
     onFilterDropdownVisibleChange: visible => {
       if (visible) {
         setTimeout(() => this.searchInput.select(), 100);
       }
     },
-    render: (text, record) => {
-        if (dataIndex === "roleID") {
-            console.log(record);
-        }
-        return this.state.searchedColumn === dataIndex ? (
-            <Highlighter
-              highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-              searchWords={[this.state.searchText]}
-              autoEscape
-              textToHighlight={text ? text.toString() : ''}
-            />
-          ) : (
-            text
-          )
-    }
-      ,
+    render: text =>
+      this.state.searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          searchWords={[this.state.searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ''}
+        />
+      ) : (
+        text
+      ),
   });
 
   handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -89,33 +77,45 @@ class SeriesList extends Component {
   };
 
   render() {
-    const data = this.props.series.map(seriesItem => {
-      seriesItem.key = seriesItem._id;
-      return seriesItem;
+    const data = this.props.subscriptions.map(subscription => {
+    subscription.key = subscription._id;
+      return subscription;
     });
     const columns = [
       {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        ...this.getColumnSearchProps('name'),
+        title: 'Email',
+        dataIndex: 'customerID',
+        key: 'customerID',
+        sorter: {
+            compare: (a, b) => {
+              if(a.customerID.email < b.customerID.email) { return -1; }
+              if(a.customerID.email > b.customerID.email) { return 1; }
+              return 0;
+            },
+            multiple: 3,
+        },
+        render: (record) => {
+          if (!record) {
+            return "Non-existing User"
+          }
+          let text = record.email
+          return <a href={`mailto:${text}`} alt={text}>{text}</a>
+        }
+      },
+      {
+        title: 'Plan',
+        dataIndex: 'planID',
+        key: 'planID',
         sorter: {
             compare: (a, b) => {
               if(a.name < b.name) { return -1; }
               if(a.name > b.name) { return 1; }
               return 0;
             },
-            multiple: 4,
-        }
-      },
-      {
-        title: 'Genres',
-        dataIndex: 'genres',
-        key: 'genres',
-        render: (genres) => {
-          return genres.map(genre => {
-            return <Tag color="blue">{genre}</Tag>
-          })
+            multiple: 2,
+        },
+        render: (record) => {
+          return record.name
         }
       },
       {
@@ -133,12 +133,12 @@ class SeriesList extends Component {
         }
       },
       {
-        title: 'Last Modified',
-        dataIndex: 'last_modified_date',
-        key: 'last_modified_date',
+        title: 'Ended Date',
+        dataIndex: 'ended_date',
+        key: 'ended_date',
         sorter: {
             compare: (a, b) => {
-              return new Date(b.last_modified_date) - new Date(a.last_modified_date);
+              return new Date(b.ended_date) - new Date(a.ended_date);
             },
             multiple: 1,
         },
@@ -153,13 +153,7 @@ class SeriesList extends Component {
         render: (text, record) => {
           return (
             <Space>
-                <Link to={`/series/details/${record._id}`} className="btn btn-primary">
-                  <i className="fas fa-eye"></i>
-                </Link>
-                <Link to={`/movies/edit/${record._id}`} className="btn btn-warning">
-                    <i className="fas fa-pen"></i>
-                </Link>
-                <DeleteSeries movieItem={record}/>
+                <DeleteSubscription subItem={record}/>
             </Space>
           )
         }
@@ -172,4 +166,4 @@ class SeriesList extends Component {
   }
 }
 
-export default SeriesList;
+export default SubscriptionList;

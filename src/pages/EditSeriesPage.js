@@ -9,15 +9,34 @@ import {
 import {
     connect
 } from "react-redux";
+import {getCurrentLoginStatus} from "../requests/authRequests";
+import {message} from "antd";
 
 class EditSeriesPage extends Component {
     
-    componentDidMount() {
+    state = {
+        loggedIn: false
+    }
+    
+    async componentDidMount() {
+        const loggedIn = await getCurrentLoginStatus();
+        this.setState({
+            loggedIn
+        })
+        if (!loggedIn) {
+            message.error("You need to login first");
+            this.props.history.push("/login");
+        }
         this.props.getAllGenres();
     }
 
     render() {
         const { match: { params }, genres } = this.props;
+        const {loggedIn} = this.state;
+
+        if (!loggedIn) {
+            return (<></>)
+        }
 
         return (
             <LayoutSide>
