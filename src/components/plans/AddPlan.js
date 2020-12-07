@@ -7,7 +7,7 @@ import {
 } from "../../actions/planActions";
 import { Button } from 'antd';
 import TextField from '@material-ui/core/TextField';
-import {Form, FormGroup} from 'reactstrap';
+import {Form, FormGroup, Label} from 'reactstrap';
 
 class AddPlan extends Component {
 
@@ -46,15 +46,19 @@ class AddPlan extends Component {
             <div>
                 <Form onSubmit={handleSubmit}>
                     <FormGroup>
+                        <Label>Name</Label>
                         <TextField id="name" name="name" label="Name" variant="outlined" className="material-input" required onChange={handleChange} value={name}/>
                     </FormGroup>
                     <FormGroup>
+                        <Label>Price</Label>
                         <TextField id="price" name="price" type="number" label="Price" variant="outlined" className="material-input" required onChange={handleChange} value={price}/>
                     </FormGroup>
                     <FormGroup>
+                        <Label>Duration In Days</Label>
                         <TextField id="durationInDays" name="durationInDays" type="number" label="Duration In Days" variant="outlined" className="material-input" required onChange={handleChange} value={durationInDays}/>
                     </FormGroup>
                     <FormGroup>
+                        <Label>Description</Label>
                         <TextField id="description" name="description" label="Description" variant="outlined" className="material-input" required onChange={handleChange} value={description}/>
                     </FormGroup>
                     <FormGroup>

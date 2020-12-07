@@ -19,7 +19,6 @@ import {
     getFileExtension
 } from "../../utils/validator";
 
-
 const { Option } = Select;
 
 class EditMovie extends Component {
@@ -171,18 +170,21 @@ class EditMovie extends Component {
                     <Row>
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <FormGroup>
+                                <Label>Name</Label>
                                 <TextField id="name" name="name" label="Name" variant="outlined" className="material-input" required onChange={handleChange} value={name}/>
                             </FormGroup>
                         </div>
 
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <FormGroup>
+                                <Label>IMDB ID</Label>
                                 <TextField id="IMDB_ID" name="IMDB_ID" label="IMDB ID" variant="outlined" className="material-input" required onChange={handleChange} value={IMDB_ID}/>
                             </FormGroup>
                         </div>
 
                         <div className="col-lg-12 col-md-12 col-sm-12">
                             <FormGroup>
+                                <Label>Genres</Label>
                                 <Select mode="tags" style={{ width: '100%' }} placeholder="Genres" onChange={handleGenreChange} value={genres}>
                                     {renderGenreOptions()}
                                 </Select>
@@ -218,6 +220,7 @@ class EditMovie extends Component {
 
                         <div className="col-lg-12 col-md-12 col-sm-12">
                             <FormGroup>
+                                <Label>Description</Label>
                                 <TinyEditor description={description} handleEditorChange={handleEditorChange} />
                             </FormGroup>
                         </div>

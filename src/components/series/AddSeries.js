@@ -10,7 +10,7 @@ import {
 } from "../../utils/utils";
 import { Button, Select, Tabs } from 'antd';
 import TextField from '@material-ui/core/TextField';
-import {Form, FormGroup, Row} from 'reactstrap';
+import {Form, FormGroup, Row, Label} from 'reactstrap';
 import TinyEditor from "../partials/TinyEditor";
 import FileUploader from "../partials/FileUploader";
 
@@ -167,18 +167,21 @@ class AddSeries extends Component {
                     <Row>
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <FormGroup>
+                                <Label>Name</Label>
                                 <TextField id="name" name="name" label="Name" variant="outlined" className="material-input" required onChange={handleChange} value={name}/>
                             </FormGroup>
                         </div>
 
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <FormGroup>
+                                <Label>IMDB ID</Label>
                                 <TextField id="IMDB_ID" name="IMDB_ID" label="IMDB ID" variant="outlined" className="material-input" required onChange={handleChange} value={IMDB_ID}/>
                             </FormGroup>
                         </div>
 
                         <div className="col-lg-12 col-md-12 col-sm-12">
                             <FormGroup>
+                                <Label>Genres</Label>
                                 <Select mode="tags" style={{ width: '100%' }} placeholder="Genres" onChange={handleGenreChange} value={genres}>
                                     {renderGenreOptions()}
                                 </Select>
@@ -186,15 +189,18 @@ class AddSeries extends Component {
                         </div>
 
                         <div className="col-lg-6 col-md-6 col-sm-12">
+                            <Label>Poster</Label>
                             <FileUploader labelTitle="Poster" inputName="posterFile" currentFile={posterFile} handleFileChange={handleFileChange}/>
                         </div>
 
                         <div className="col-lg-6 col-md-6 col-sm-12">
+                            <Label>Trailer</Label>
                             <FileUploader labelTitle="Trailer" inputName="trailerFile" currentFile={trailerFile} handleFileChange={handleFileChange}/>
                         </div>
 
                         <div className="col-lg-12 col-md-12 col-sm-12">
                             <FormGroup>
+                                <Label>Total Episodes</Label>
                                 <TextField id="total_episodes" name="total_episodes"
                                 inputProps={{ type: "number" }}
                                 label="Total Episodes" variant="outlined" className="material-input" required onChange={handleChange} value={total_episodes}/>
@@ -203,12 +209,14 @@ class AddSeries extends Component {
 
                         <div className="col-lg-12 col-md-12 col-sm-12">
                             <FormGroup>
+                                <Label>Episodes</Label>
                                 {renderEpisodeTabs()}
                             </FormGroup>
                         </div>
 
                         <div className="col-lg-12 col-md-12 col-sm-12">
                             <FormGroup>
+                                <Label>Description</Label>
                                 <TinyEditor description={description} handleEditorChange={handleEditorChange} />
                             </FormGroup>
                         </div>

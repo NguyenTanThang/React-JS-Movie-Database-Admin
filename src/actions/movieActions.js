@@ -13,6 +13,9 @@ import {
     uploadMovieFirebase
 } from "../requests/firebaseStorageRequests";
 import {
+    checkForURLUsage
+} from "../requests/movieRequests";
+import {
     isObjectEmpty
 } from "../utils/validator";
 
@@ -21,7 +24,8 @@ const MOVIE_URL = `${MAIN_PROXY_URL}/movies`;
 export const deleteMovie = (movieID) => {
     return async (dispatch) => {
         try {
-            const res = await axios.delete(`${MOVIE_URL}/delete/${movieID}`);
+            let res = await checkForURLUsage(movieID);
+            res = await axios.delete(`${MOVIE_URL}/delete/${movieID}`);
             
             if (res.data.success) {
                 message.success(res.data.message, 5);

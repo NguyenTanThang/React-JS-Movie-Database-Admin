@@ -10,7 +10,7 @@ import {
 } from "../../requests/customerRequests";
 import { Button } from 'antd';
 import TextField from '@material-ui/core/TextField';
-import {Form, FormGroup} from 'reactstrap';
+import {Form, FormGroup, Label} from 'reactstrap';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -78,12 +78,15 @@ class EditCustomer extends Component {
             <div>
                 <Form onSubmit={handleSubmit}>
                     <FormGroup>
+                        <Label>Email</Label>
                         <TextField id="email" name="email" label="Email" variant="outlined" className="material-input" required onChange={handleChange} value={email}/>
                     </FormGroup>
                     <FormGroup>
+                        <Label>Password</Label>
                         <TextField id="password" name="password" type="password" label="Leave empty if you want to keep the current password" variant="outlined" className="material-input" onChange={handleChange} value={password}/>
                     </FormGroup>
                     <FormGroup>
+                        <Label>Status</Label>
                         <FormControl variant="outlined" className="material-input">
                             <InputLabel id="validated">Status</InputLabel>
                             <Select

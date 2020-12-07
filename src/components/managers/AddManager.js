@@ -10,7 +10,7 @@ import {
 } from "../../requests/managerRoleRequests";
 import { Button } from 'antd';
 import TextField from '@material-ui/core/TextField';
-import {Form, FormGroup} from 'reactstrap';
+import {Form, FormGroup, Label} from 'reactstrap';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -68,12 +68,15 @@ class AddManager extends Component {
             <div>
                 <Form onSubmit={handleSubmit}>
                     <FormGroup>
+                        <Label>Username</Label>
                         <TextField id="username" name="username" label="Username" variant="outlined" className="material-input" required onChange={handleChange} value={username}/>
                     </FormGroup>
                     <FormGroup>
+                        <Label>Password</Label>
                         <TextField id="password" name="password" type="password" label="Password" variant="outlined" className="material-input" required onChange={handleChange} value={password}/>
                     </FormGroup>
                     <FormGroup>
+                        <Label>Role</Label>
                         <FormControl variant="outlined" className="material-input">
                             <InputLabel id="roleID">Role</InputLabel>
                             <Select

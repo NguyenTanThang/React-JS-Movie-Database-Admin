@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { Modal, Button } from 'antd';
 import TextField from '@material-ui/core/TextField';
-import {Form, FormGroup} from 'reactstrap';
+import {Form, FormGroup, Label} from 'reactstrap';
 import {
   editGenre,
 } from "../../actions/genreActions";
@@ -66,6 +66,7 @@ class EditGenre extends Component {
         >
           <Form onSubmit={handleSubmit}>
             <FormGroup>
+                <Label>{`Genre's Name`}</Label>
                 <TextField id="name" label="Genre's Name" variant="outlined" className="material-input" required value={name} onChange={handleChange}/>
             </FormGroup>
             <FormGroup>

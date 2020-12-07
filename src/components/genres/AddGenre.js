@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { Modal, Button } from 'antd';
 import TextField from '@material-ui/core/TextField';
-import {Form, FormGroup} from 'reactstrap';
+import {Form, FormGroup, Label} from 'reactstrap';
 
 class AddGenre extends Component {
   state = { 
@@ -58,7 +58,8 @@ class AddGenre extends Component {
         >
           <Form onSubmit={handleSubmit}>
             <FormGroup>
-                <TextField id="name" label="Genre's Name" variant="outlined" className="material-input" required onChange={handleChange} value={name}/>
+              <Label>{`Genre's Name`}</Label>
+              <TextField id="name" label="Genre's Name" variant="outlined" className="material-input" required onChange={handleChange} value={name}/>
             </FormGroup>
             <FormGroup>
                 <Button type="primary" htmlType="submit" block>

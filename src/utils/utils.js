@@ -4,6 +4,7 @@ export const exchangeURLToFileDirectory = (url) => {
     var dec = decodeURI(enc);
     var tempUrl = dec.replace(/%20/g, " ");
     tempUrl = tempUrl.replace(/%2F/g, "/");
+    tempUrl = tempUrl.replace(/%23/g, "#");
     tempUrl = tempUrl.split("?")[0].split("/o/")[1];
     return tempUrl;
 }
