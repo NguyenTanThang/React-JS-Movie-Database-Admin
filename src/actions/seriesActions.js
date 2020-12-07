@@ -14,8 +14,12 @@ import {
 import {
     addMultipleEpisodes,
     editMultipleEpisodes,
-    deleteExceededEpisode
+    deleteExceededEpisode,
+    checkForURLUsageEpisodes
 } from "../requests/episodeRequests";
+import {
+    checkForURLUsageSeries
+} from "../requests/seriesRequests";
 import {
     isObjectEmpty
 } from "../utils/validator";
@@ -25,7 +29,9 @@ const SERIES_URL = `${MAIN_PROXY_URL}/series`;
 export const deleteSeries = (seriesID) => {
     return async (dispatch) => {
         try {
-            const res = await axios.delete(`${SERIES_URL}/delete/${seriesID}`);
+            let res = await checkForURLUsageEpisodes(seriesID);
+            res = await checkForURLUsageSeries(seriesID);
+            res = await axios.delete(`${SERIES_URL}/delete/${seriesID}`);
             
             if (res.data.success) {
                 message.success(res.data.message, 5);

@@ -1,11 +1,58 @@
 import axios from "axios";
-import {MAIN_PROXY_URL} from "../config/config";
-import {message} from "antd";
+import {
+    MAIN_PROXY_URL
+} from "../config/config";
+import {
+    message
+} from "antd";
 import {
     uploadEpisodeFirebase
 } from "./firebaseStorageRequests";
+import {
+    deleteFileFirebase
+} from "./firebaseStorageRequests";
 
 const EPISODES_URL = `${MAIN_PROXY_URL}/episodes`;
+
+export const checkForURLUsageEpisodes = async (seriesID) => {
+    try {
+        const res = await axios.get(`${EPISODES_URL}/checkURLUsage/seriesID/${seriesID}`);
+
+        console.log(res);
+
+        const {
+            episodes,
+            //episodeList,
+            episodeURLUsage
+        } = res.data.data;
+
+        for (let i = 0; i < episodes.length; i++) {
+            let tof = true;
+            const episodeMasterItem = episodes[i];
+
+            for (let j = 0; j < episodeURLUsage.length; j++) {
+                const episodeURLUsageItem = episodeURLUsage[j];
+                const {
+                    indexIndicator
+                } = episodeURLUsageItem;
+
+                if (indexIndicator === i) {
+                    tof = false;
+                    break;
+                }
+            }
+
+            if (tof) {
+                await deleteFileFirebase(episodeMasterItem.episodeURL);
+            }
+        }
+
+        return res.data.data;
+    } catch (error) {
+        console.log(error);
+        message.error(`${error.message}`, 5);
+    }
+}
 
 export const deleteExceededEpisode = async (seriesID, totalEpisode) => {
     try {
@@ -38,7 +85,9 @@ export const deleteEpisodeByID = async (episodeID) => {
 
 export const deleteEpisodeBySeriesIDAndEpNum = async (seriesID, episodeObject) => {
     try {
-        const {episodeNum} = episodeObject;
+        const {
+            episodeNum
+        } = episodeObject;
         const res = await axios.delete(`${EPISODES_URL}/delete/seriesID/${seriesID}/epNum/${episodeNum}`);
 
         return res.data.data;
@@ -61,11 +110,16 @@ export const getEpisodesBySeriesID = async (seriesID) => {
 
 export const addEpisode = async (seriesID, newEpisode) => {
     try {
-        const {episodeFile, episodeNum} = newEpisode;
-        
+        const {
+            episodeFile,
+            episodeNum
+        } = newEpisode;
+
         let episodeURL = await uploadEpisodeFirebase(episodeFile)
         const res = await axios.post(`${EPISODES_URL}/add/`, {
-            seriesID, episodeURL, episodeNum
+            seriesID,
+            episodeURL,
+            episodeNum
         });
 
         return res.data.data;
@@ -78,7 +132,7 @@ export const addEpisode = async (seriesID, newEpisode) => {
 export const editEpisode = async (seriesID, updatedEpisode) => {
     try {
         //const {episodeFile, episodeNum} = updatedEpisode;
-        
+
         /*
         let episodeURL = await uploadEpisodeFirebase(episodeFile);
         */
